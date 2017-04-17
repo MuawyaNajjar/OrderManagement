@@ -4,5 +4,37 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
+	<navigation-rule>
+		<display-name>webPages/order-management-main.xhtml</display-name>
+		<from-view-id>/webPages/order-management-main.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>customer</from-outcome>
+			<to-view-id>/webPages/customer.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>webPages/order-management-main.xhtml</display-name>
+		<from-view-id>/webPages/order-management-main.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>order</from-outcome>
+			<to-view-id>/webPages/customer-order.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>webPages/order-management-main.xhtml</display-name>
+		<from-view-id>/webPages/order-management-main.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>orderItem</from-outcome>
+			<to-view-id>/webPages/order-items.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>webPages/order-management-main.xhtml</display-name>
+		<from-view-id>/webPages/order-management-main.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>product</from-outcome>
+			<to-view-id>/webPages/product.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>
