@@ -17,6 +17,7 @@ public class BusniessServices {
 	 * @return EntityManeger Create EntityManager
 	 */
 	public static EntityManager open() {
+
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("OrderManagement");
 		EntityManager em = emf.createEntityManager();
@@ -42,8 +43,14 @@ public class BusniessServices {
 
 	public void addCustomer(Customer customer) {
 		EntityManager entityManager = open();
-		entityManager.merge(customer);
-		close(entityManager);
+		try {
+			entityManager.merge(customer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(entityManager);
+		}
+
 	}
 
 	/**
@@ -53,15 +60,19 @@ public class BusniessServices {
 
 	public Boolean deleteCustomer(Integer value) {
 		EntityManager em = open();
-		Customer findCustomer = em.find(Customer.class, value);
-		if (findCustomer != null) {
-			em.remove(findCustomer);
+		boolean isDelete = false;
+		try {
+			Customer findCustomer = em.find(Customer.class, value);
+			if (findCustomer != null) {
+				em.remove(findCustomer);
+				isDelete = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			close(em);
-			return true;
-		} else {
-			return false;
 		}
-
+		return isDelete;
 	}
 
 	/**
@@ -71,8 +82,15 @@ public class BusniessServices {
 	public List<Customer> getAllCustomer() {
 		EntityManager em = open();
 		List<Customer> getAll = new ArrayList<Customer>();
-		Query query = em.createNamedQuery("Customer.findAll");
-		getAll = query.getResultList();
+		try {
+			Query query = em.createNamedQuery("Customer.findAll");
+			getAll = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (getAll.size() == 0) {
+			getAll = new ArrayList<Customer>();
+		}
 		return getAll;
 	}
 
@@ -98,8 +116,14 @@ public class BusniessServices {
 
 	public void addProduct(Product product) {
 		EntityManager entityManager = open();
-		entityManager.merge(product);
-		close(entityManager);
+		try {
+			entityManager.merge(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(entityManager);
+		}
+
 	}
 
 	/**
@@ -109,15 +133,19 @@ public class BusniessServices {
 
 	public Boolean deleteProduct(Integer value) {
 		EntityManager em = open();
-		Product findProduct = em.find(Product.class, value);
-		if (findProduct != null) {
-			em.remove(findProduct);
+		boolean isDelete = false;
+		try {
+			Product findProduct = em.find(Product.class, value);
+			if (findProduct != null) {
+				em.remove(findProduct);
+				isDelete = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			close(em);
-			return true;
-		} else {
-			return false;
 		}
-
+		return isDelete;
 	}
 
 	/**
@@ -127,8 +155,15 @@ public class BusniessServices {
 	public List<Product> getAllProduct() {
 		EntityManager em = open();
 		List<Product> getAll = new ArrayList<Product>();
-		Query query = em.createNamedQuery("Product.findAll");
-		getAll = query.getResultList();
+		try {
+			Query query = em.createNamedQuery("Product.findAll");
+			getAll = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (getAll.size() == 0) {
+			getAll = new ArrayList<Product>();
+		}
 		return getAll;
 	}
 
@@ -139,8 +174,14 @@ public class BusniessServices {
 
 	public void addOrder(CustomerOrder customerOrder) {
 		EntityManager entityManager = open();
-		entityManager.merge(customerOrder);
-		close(entityManager);
+		try {
+			entityManager.merge(customerOrder);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(entityManager);
+		}
+
 	}
 
 	/**
@@ -150,8 +191,16 @@ public class BusniessServices {
 	public List<CustomerOrder> getAllOrder() {
 		EntityManager em = open();
 		List<CustomerOrder> getAll = new ArrayList<CustomerOrder>();
-		Query query = em.createNamedQuery("CustomerOrder.findAll");
-		getAll = query.getResultList();
+		try {
+			Query query = em.createNamedQuery("CustomerOrder.findAll");
+			getAll = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (getAll.size() == 0) {
+			getAll = new ArrayList<CustomerOrder>();
+		}
+
 		return getAll;
 	}
 
@@ -162,15 +211,19 @@ public class BusniessServices {
 
 	public Boolean deleteOrder(Integer value) {
 		EntityManager em = open();
-		CustomerOrder findOrder = em.find(CustomerOrder.class, value);
-		if (findOrder != null) {
-			em.remove(findOrder);
+		boolean isDelete = false;
+		try {
+			CustomerOrder findOrder = em.find(CustomerOrder.class, value);
+			if (findOrder != null) {
+				em.remove(findOrder);
+				isDelete = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			close(em);
-			return true;
-		} else {
-			return false;
 		}
-
+		return isDelete;
 	}
 
 	/**
@@ -179,8 +232,14 @@ public class BusniessServices {
 	 */
 	public void addItem(OrderItem item) {
 		EntityManager entityManager = open();
-		entityManager.merge(item);
-		close(entityManager);
+		try {
+			entityManager.merge(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(entityManager);
+		}
+
 	}
 
 	/**
@@ -190,8 +249,16 @@ public class BusniessServices {
 	public List<OrderItem> getAllItem() {
 		EntityManager em = open();
 		List<OrderItem> getAll = new ArrayList<OrderItem>();
-		Query query = em.createNamedQuery("OrderItem.findAll");
-		getAll = query.getResultList();
+		try {
+			Query query = em.createNamedQuery("OrderItem.findAll");
+			getAll = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (getAll.size() == 0) {
+			getAll = new ArrayList<OrderItem>();
+		}
+
 		return getAll;
 	}
 
@@ -202,15 +269,20 @@ public class BusniessServices {
 
 	public Boolean deleteItem(Integer value) {
 		EntityManager em = open();
-		OrderItem findItem = em.find(OrderItem.class, value);
-		if (findItem != null) {
-			em.remove(findItem);
+		boolean isDelete = false;
+		try {
+			OrderItem findItem = em.find(OrderItem.class, value);
+			if (findItem != null) {
+				em.remove(findItem);
+				isDelete = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			close(em);
-			return true;
-		} else {
-			return false;
 		}
 
+		return isDelete;
 	}
 
 	public Customer findCustomer(Integer value) {

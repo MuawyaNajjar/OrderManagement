@@ -34,7 +34,6 @@ public class CustomerBackingBean extends OrderManagementBackingBean {
 		} else {
 			addMessage(DUBLICATE_CUSTOMER, FacesMessage.SEVERITY_ERROR, "");
 		}
-
 		customersList = services.getAllCustomer();
 		cancel();
 	}
