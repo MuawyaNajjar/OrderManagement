@@ -10,7 +10,6 @@ import javax.faces.event.ActionEvent;
 
 import model.Customer;
 import model.CustomerOrder;
-import model.Product;
 import services.BusniessServices;
 
 @ViewScoped
