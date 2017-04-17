@@ -20,6 +20,7 @@ public interface OrderManagementInterface {
 	public static final String ORDER_DELETED = "ORDER IS Deleted";
 	public static final String ORDER_IS_NOT_DELETED = "ORDER IS Not Deleted";
 	public static final String EDIT_ORDER = "ORDER IS Edit";
+	public static final String DUBLICATE_ORDER = "Order Is Dublicate";
 
 	public static final String ITEM_SUCCESSFUL = "Add Item Successful";
 	public static final String ADD_ITEM_MSG_ERROR = "Can't Add Item";

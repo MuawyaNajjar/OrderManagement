@@ -63,16 +63,16 @@ public class ProductBackingBean extends OrderManagementBackingBean {
 	}
 
 	private boolean isExistProudct(String productName) {
-		boolean x = true;
+		boolean value = true;
 		for (Product product : productList) {
 			if (product.getName().trim().equalsIgnoreCase(productName.trim())) {
-				x = false;
+				value = false;
 				break;
 			} else {
 				continue;
 			}
 		}
-		return x;
+		return value;
 	}
 
 	public void cancel() {

@@ -72,18 +72,18 @@ public class OrderItemBackingBean extends OrderManagementBackingBean {
 
 	private boolean isExistItem(Integer productId, Integer orderId,
 			String status) {
-		boolean x = true;
+		boolean value = true;
 		for (OrderItem orderItem : orderItemList) {
 			if ((orderItem.getProduct().getId().equals(productId) && orderItem
 					.getCustomerOrder().getId().equals(orderId))
 					&& orderItem.getStatus().equalsIgnoreCase(status)) {
-				x = false;
+				value = false;
 				break;
 			} else {
 				continue;
 			}
 		}
-		return x;
+		return value;
 	}
 
 	public void cancel() {

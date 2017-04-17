@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 
 import model.Customer;
 import model.CustomerOrder;
+import model.Product;
 import services.BusniessServices;
 
 @ViewScoped
@@ -27,13 +28,18 @@ public class OrderBackingBean extends OrderManagementBackingBean {
 		customerOrderList = new ArrayList<CustomerOrder>();
 		customerOrderList = services.getAllOrder();
 		customers = new ArrayList<Customer>();
-		customers=services.getAllCustomer();
+		customers = services.getAllCustomer();
 
 	}
 
 	public void add(ActionEvent event) {
-		services.addOrder(customerOrder);
-		addMessage(ORDER_SUCCESSFUL, FacesMessage.SEVERITY_INFO, "");
+		if (isExistOrder(customerOrder.getName(), customerOrder.getCustomer()
+				.getId())) {
+			services.addOrder(customerOrder);
+			addMessage(ORDER_SUCCESSFUL, FacesMessage.SEVERITY_INFO, "");
+		} else {
+			addMessage(DUBLICATE_ORDER, FacesMessage.SEVERITY_ERROR, "");
+		}
 		customerOrderList = services.getAllOrder();
 		cancel();
 	}
@@ -57,7 +63,20 @@ public class OrderBackingBean extends OrderManagementBackingBean {
 		addMessage(EDIT_ORDER, FacesMessage.SEVERITY_INFO, "");
 		customerOrderList = services.getAllOrder();
 		cancel();
+	}
 
+	private boolean isExistOrder(String orderName, Integer customerId) {
+		boolean value = true;
+		for (CustomerOrder customerOrder : customerOrderList) {
+			if (customerOrder.getName().equalsIgnoreCase(orderName)
+					&& customerOrder.getCustomer().getId().equals(customerId)) {
+				value = false;
+				break;
+			} else {
+				continue;
+			}
+		}
+		return value;
 	}
 
 	public void cancel() {
