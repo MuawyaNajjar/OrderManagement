@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Order</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl autoUpdate="true" life="1500" />
+
+		<p:spacer width="100" height="60" />
+
+		<p:panelGrid id="pnlAddOrd" columns="2" style="margin: 0 auto;">
+			<f:facet name="header">
+				<h:outputLabel value="Order" />
+			</f:facet>
+			<p:outputLabel value="OrderName" />
+			<p:inputText value="#{orderBacking.customerOrder.name}"
+				required="true" />
+			<p:outputLabel value="GrandTotal" />
+			<p:inputText value="#{orderBacking.customerOrder.grandTotal}"
+				required="true" />
+			<p:outputLabel value="CustomerName" />
+			<p:selectOneMenu value="#{orderBacking.customerOrder.customer}"
+				converter="customerConverter" required="true">
+				<f:selectItems value="#{orderBacking.customers}" />
+			</p:selectOneMenu>
+
+			<f:facet name="footer">
+				<p:panelGrid columns="4">
+					<p:commandButton value="Confirm" update="pnlAddOrd tbl"
+						process="pnlAddOrd" actionListener="#{orderBacking.add}" />
+					<p:commandButton value="Update" update="pnlAddOrd tbl"
+						process="pnlAddOrd" actionListener="#{orderBacking.update}" />
+					<p:commandButton value="Delete"
+						actionListener="#{orderBacking.deleteOrder}"
+						update="pnlAddOrd tbl">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:commandButton value="Undo" update="pnlAddOrd"
+						actionListener="#{orderBacking.cancel}" />
+				</p:panelGrid>
+			</f:facet>
+		</p:panelGrid>
+
+		<p:spacer width="100" height="10" />
+
+		<p:dataTable value="#{orderBacking.customerOrderList}" var="order"
+			selectionMode="single" border="1" id="tbl"
+			selection="#{orderBacking.customerOrder}" rowKey="#{order.id}"
+			style="width:575px; margin: 0 auto;">
+			<p:ajax event="rowSelect" update=":form:pnlAddOrd" />
+			<p:ajax event="rowUnselect" update=":form:pnlAddOrd" />
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="OrderID" />
+				</f:facet>
+				<p:outputLabel value="#{order.id}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="OrderName" />
+				</f:facet>
+				<p:outputLabel value="#{order.name}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="GrandTotal" />
+				</f:facet>
+				<p:outputLabel value="#{order.grandTotal}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="CustomerName" />
+				</f:facet>
+				<p:outputLabel value="#{order.customer.name}" />
+			</p:column>
+
+		</p:dataTable>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Product</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+
+		<p:growl autoUpdate="true" life="1500" />
+
+		<p:spacer width="100" height="60" />
+		<p:panelGrid id="pnlAddPro" columns="2" style="margin: 0 auto;">
+			<f:facet name="header">
+				<h:outputLabel value="ADD Product" />
+			</f:facet>
+			<p:outputLabel value="ProductName" />
+			<p:inputText value="#{productBacking.product.name}" required="true" />
+
+			<p:outputLabel value="ProductPrice" />
+			<p:inputText value="#{productBacking.product.price}" required="true" />
+
+
+			<f:facet name="footer">
+				<p:panelGrid columns="4">
+					<p:commandButton value="Confirm" update="pnlAddPro tbl"
+						process="pnlAddPro" actionListener="#{productBacking.add}" />
+					<p:commandButton value="Update" update="pnlAddPro tbl"
+						process="pnlAddPro" actionListener="#{productBacking.update}" />
+					<p:commandButton value="Delete"
+						actionListener="#{productBacking.deleteProduct}"
+						update="pnlAddPro tbl">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:commandButton value="Undo" update="pnlAddPro"
+						actionListener="#{productBacking.cancel}" />
+				</p:panelGrid>
+			</f:facet>
+		</p:panelGrid>
+
+		<p:spacer width="100" height="10" />
+
+		<p:dataTable value="#{productBacking.productList}" var="product"
+			selectionMode="single" border="1" id="tbl"
+			selection="#{productBacking.product}" rowKey="#{product.id}"
+			style="width:560px; margin: 0 auto;">
+			<p:ajax event="rowSelect" update=":form:pnlAddPro" />
+			<p:ajax event="rowUnselect" update=":form:pnlAddPro" />
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="ProductID" />
+				</f:facet>
+				<p:outputLabel value="#{product.id}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="ProductName" />
+				</f:facet>
+				<p:outputLabel value="#{product.name}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="ProductPrice" />
+				</f:facet>
+				<p:outputLabel value="#{product.price}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+	</h:form>
+</h:body>
+</html>

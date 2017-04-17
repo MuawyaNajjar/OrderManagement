@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Order Item</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl autoUpdate="true" life="1500" />
+
+		<p:spacer width="100" height="60" />
+		<p:panelGrid id="pnlAddItem" columns="2" style="margin: 0 auto;">
+			<f:facet name="header">
+				<h:outputLabel value="Order Item" />
+			</f:facet>
+			<p:outputLabel value="Status" />
+			<p:inputText value="#{orderItemBacking.orderItem.status}"
+				required="true" />
+			<p:outputLabel value="Quantity" />
+			<p:inputText value="#{orderItemBacking.orderItem.quantity}"
+				required="true" />
+			<p:outputLabel value="ProductName" />
+			<p:selectOneMenu value="#{orderItemBacking.orderItem.product}"
+				required="true" converter="productConverter">
+				<f:selectItems value="#{orderItemBacking.productsList}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="OrderName" />
+			<p:selectOneMenu value="#{orderItemBacking.orderItem.customerOrder}"
+				required="true" converter="orderConverter">
+				<f:selectItems value="#{orderItemBacking.orders}" />
+			</p:selectOneMenu>
+
+			<f:facet name="footer">
+				<p:panelGrid columns="4">
+					<p:commandButton value="Confirm" update="pnlAddItem tbl"
+						process="pnlAddItem" actionListener="#{orderItemBacking.addItems}" />
+					<p:commandButton value="Update" update="pnlAddItem tbl"
+						process="pnlAddItem" actionListener="#{orderItemBacking.update}" />
+					<p:commandButton value="Delete"
+						actionListener="#{orderItemBacking.deleteItem}"
+						update="pnlAddItem tbl">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:commandButton value="Undo" update="pnlAddItem"
+						actionListener="#{orderItemBacking.cancel}" />
+				</p:panelGrid>
+			</f:facet>
+		</p:panelGrid>
+
+		<p:spacer width="100" height="10" />
+
+		<p:dataTable value="#{orderItemBacking.orderItemList}" var="item"
+			selectionMode="single" border="1" id="tbl"
+			selection="#{orderItemBacking.orderItem}" rowKey="#{item.id}"
+			style="width:750px; margin: 0 auto;">
+			<p:ajax event="rowSelect" update=":form:pnlAddItem" />
+			<p:ajax event="rowUnselect" update=":form:pnlAddItem" />
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="OrderItemID" />
+				</f:facet>
+				<p:outputLabel value=" #{item.id}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="Status" />
+				</f:facet>
+				<p:outputLabel value="#{item.status}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="Quantity" />
+				</f:facet>
+				<p:outputLabel value="#{item.quantity}" />
+			</p:column>
+
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="ProductName" />
+				</f:facet>
+				<p:outputLabel value="#{item.product.name}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="OrderName" />
+				</f:facet>
+				<p:outputLabel value="#{item.customerOrder.name}" />
+			</p:column>
+
+		</p:dataTable>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+	</h:form>
+</h:body>
+</html>

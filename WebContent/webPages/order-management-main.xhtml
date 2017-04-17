@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Order Management</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:spacer width="100" height="60" />
+		<div align="center">
+			<H2>Order Management</H2>
+			<p:menu>
+				<p:menuitem value="Customer" outcome="/webPages/customer.xhtml" />
+				<p:menuitem value="Order" outcome="/webPages/customer-order.xhtml" />
+				<p:menuitem value="Product" outcome="/webPages/product.xhtml" />
+				<p:menuitem value="Item" outcome="/webPages/order-items.xhtml" />
+			</p:menu>
+		</div>
+	</h:form>
+
+</h:body>
+</html>
