@@ -7,6 +7,7 @@ public interface OrderManagementInterface {
 	public static final String CUSTOMER_DELETED = "Customer IS Deleted";
 	public static final String CUSTOMER_IS_NOT_DELETED = "Customer IS Not Deleted";
 	public static final String EDIT_CUSTOMER = "Customer IS Edit";
+	public static final String DUBLICATE_CUSTOMER = "Customer IS Dublicate";
 
 	public static final String PRODUCT_SUCCESSFUL = "Add Product Successful";
 	public static final String ADD_PRODUCT_MSG_ERROR = "Can't Add Product";

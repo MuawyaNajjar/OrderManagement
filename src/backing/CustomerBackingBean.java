@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
 import services.BusniessServices;
 import model.Customer;
 
@@ -27,8 +28,13 @@ public class CustomerBackingBean extends OrderManagementBackingBean {
 	}
 
 	public void add(ActionEvent event) {
-		services.addCustomer(customer);
-		addMessage(CUSTOMER_SUCCESSFUL, FacesMessage.SEVERITY_INFO, "");
+		if (isExistCustomer(customer.getName())) {
+			services.addCustomer(customer);
+			addMessage(CUSTOMER_SUCCESSFUL, FacesMessage.SEVERITY_INFO, "");
+		} else {
+			addMessage(DUBLICATE_CUSTOMER, FacesMessage.SEVERITY_ERROR, "");
+		}
+
 		customersList = services.getAllCustomer();
 		cancel();
 	}
@@ -54,6 +60,19 @@ public class CustomerBackingBean extends OrderManagementBackingBean {
 		customersList = services.getAllCustomer();
 		cancel();
 
+	}
+
+	private boolean isExistCustomer(String customerName) {
+		boolean value = true;
+		for (Customer customer : customersList) {
+			if (customer.getName().equalsIgnoreCase(customerName)) {
+				value = false;
+				break;
+			} else {
+				continue;
+			}
+		}
+		return value;
 	}
 
 	public void cancel() {
